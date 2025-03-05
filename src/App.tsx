@@ -4,29 +4,19 @@ import { Heart } from 'lucide-react';
 import { ParticlesBackground } from './components/ParticlesBackground';
 import { MusicPlayer } from './components/MusicPlayer';
 import { PhotoSlideshow } from './components/PhotoSlideshow';
+import TypingCard from './components/TypingCard';
 
 function App() {
-  const [started, setStarted] = useState(false);
-  const [showVolumeAlert, setShowVolumeAlert] = useState(false);
-
-  const handleStartClick = () => {
-    // Ao clicar em "Começar", exibe o aviso de volume
-    setShowVolumeAlert(true);
-  };
-
-  const handleContinue = () => {
-    // Após o aviso, inicia o conteúdo principal
-    setStarted(true);
-    setShowVolumeAlert(false);
-  };
+  const [step, setStep] = useState(0);
+  const [textFinished, setTextFinished] = useState(false);
 
   return (
     <div className="min-h-screen bg-[#1a1a2e] text-white relative overflow-hidden">
       <ParticlesBackground />
-      
+
       <AnimatePresence>
-        {/* Tela inicial com botão "Começar" */}
-        {!started && !showVolumeAlert && (
+        {/* Tela inicial */}
+        {step === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -46,7 +36,7 @@ function App() {
                 repeat: Infinity,
                 duration: 1.5,
               }}
-              onClick={handleStartClick}
+              onClick={() => setStep(1)}
               className="bg-pink-500 text-white px-8 py-4 rounded-full text-xl font-bold flex items-center gap-2 hover:bg-pink-600 transition-colors"
             >
               <Heart className="animate-pulse" />
@@ -55,8 +45,8 @@ function App() {
           </motion.div>
         )}
 
-        {/* Aviso estilizado para aumentar o volume */}
-        {!started && showVolumeAlert && (
+        {/* Aviso de volume */}
+        {step === 1 && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -66,12 +56,12 @@ function App() {
             <div className="bg-white text-black rounded-lg p-6 max-w-sm text-center">
               <p className="mb-4 text-lg font-bold">Atenção!</p>
               <p className="mb-6">
-                Para uma melhor experiência, por favor, aumente o volume do seu dispositivo.
+                Para uma melhor experiência, aumente o volume do seu dispositivo.
               </p>
               <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                onClick={handleContinue}
+                onClick={() => setStep(2)}
                 className="bg-pink-500 text-white px-4 py-2 rounded-full"
               >
                 Continuar
@@ -80,15 +70,36 @@ function App() {
           </motion.div>
         )}
 
-        {/* Conteúdo principal */}
-        {started && (
+        {/* Carta com efeito de escrita */}
+        {step === 2 && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="min-h-screen flex flex-col items-center justify-center p-8 text-center relative z-10"
+          >
+            <TypingCard onFinish={() => setTextFinished(true)} />
+
+            {textFinished && (
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => setStep(3)}
+                className="bg-pink-500 text-white px-6 py-3 rounded-full text-lg font-bold mt-6"
+              >
+                Seguir 💖
+              </motion.button>
+            )}
+          </motion.div>
+        )}
+
+        {/* Slideshow de fotos */}
+        {step === 3 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="min-h-screen flex flex-col items-center justify-center p-4"
           >
             <MusicPlayer />
-            
             <motion.h1
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -96,7 +107,6 @@ function App() {
             >
               Feliz Dia das Mulheres!
             </motion.h1>
-            
             <PhotoSlideshow />
           </motion.div>
         )}

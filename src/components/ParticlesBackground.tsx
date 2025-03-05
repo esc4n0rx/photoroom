@@ -15,86 +15,74 @@ export const ParticlesBackground = () => {
       options={{
         particles: {
           number: {
-            value: 30,
+            value: 50,
             density: {
               enable: true,
-              value_area: 800
+              value_area: 900
             }
           },
           color: {
-            value: ["#ff69b4", "#ff1493", "#ff69b4"]
+            value: ["#ff69b4", "#ff1493", "#ff6b81"] 
           },
           shape: {
-            type: ["heart", "circle"],
-            options: {
-              heart: {
-                particles: {
-                  size: {
-                    value: 16
-                  }
-                }
-              },
-              circle: {
-                particles: {
-                  size: {
-                    value: 10
-                  }
-                }
-              }
-            }
+            type: ["heart", "circle", "star"],
           },
           opacity: {
-            value: 0.6,
+            value: 0.7,
             random: true,
             anim: {
               enable: true,
-              speed: 1,
-              opacity_min: 0.1,
+              speed: 1.5,
+              opacity_min: 0.2,
               sync: false
             }
           },
           size: {
-            value: 8,
+            value: 12,
             random: true,
             anim: {
               enable: true,
               speed: 2,
-              size_min: 3,
+              size_min: 5,
               sync: false
             }
           },
           move: {
             enable: true,
-            speed: 1.5,
-            direction: "none",
+            speed: 2, // Velocidade mais fluida
+            direction: "top", // Faz as partículas subirem lentamente
             random: true,
             straight: false,
             outModes: {
               default: "out"
             },
             attract: {
-              enable: true,
-              rotateX: 600,
-              rotateY: 1200
+              enable: false,
             }
           }
         },
         interactivity: {
-          detect_on: "canvas",
           events: {
             onHover: {
               enable: true,
-              mode: "bubble"
+              // mode: "repulse" // Move suavemente ao passar o mouse
+            },
+            onClick: {
+              enable: true,
+              mode: "bubble" // Pequeno efeito de explosão ao clicar
             },
             resize: true
           },
           modes: {
+            repulse: {
+              distance: 120,
+              duration: 0.4
+            },
             bubble: {
-              distance: 200,
-              size: 12,
+              distance: 150,
+              size: 18,
               duration: 2,
-              opacity: 0.8,
-              speed: 3
+              opacity: 1
             }
           }
         },
