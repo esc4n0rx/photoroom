@@ -15,7 +15,6 @@ function App() {
       <ParticlesBackground />
 
       <AnimatePresence>
-        {/* Tela inicial */}
         {step === 0 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -45,7 +44,6 @@ function App() {
           </motion.div>
         )}
 
-        {/* Aviso de volume */}
         {step === 1 && (
           <motion.div
             initial={{ opacity: 0 }}
@@ -70,13 +68,13 @@ function App() {
           </motion.div>
         )}
 
-        {/* Carta com efeito de escrita */}
         {step === 2 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="min-h-screen flex flex-col items-center justify-center p-8 text-center relative z-10"
+            className="min-h-screen flex flex-col items-center justify-center p-4 md:p-8 text-center relative z-10"
           >
+            <div className="w-full flex flex-col items-center">
             <TypingCard onFinish={() => setTextFinished(true)} />
 
             {textFinished && (
@@ -89,10 +87,10 @@ function App() {
                 Seguir 💖
               </motion.button>
             )}
+            </div>
           </motion.div>
         )}
 
-        {/* Slideshow de fotos */}
         {step === 3 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}

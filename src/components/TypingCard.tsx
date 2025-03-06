@@ -7,8 +7,8 @@ interface TypingCardProps {
 
 const TypingCard: React.FC<TypingCardProps> = ({ onFinish }) => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg max-w-xl border border-pink-500">
-      <div className="text-2xl md:text-3xl font-handwriting leading-relaxed text-left whitespace-pre-line">
+    <div className="bg-white p-4 md:p-6 rounded-lg shadow-lg max-w-xs md:max-w-xl mx-4 border border-pink-500 max-h-[70vh] overflow-y-auto">
+      <div className="text-lg md:text-xl lg:text-2xl font-handwriting leading-relaxed text-left whitespace-pre-line">
         <Typewriter
           onInit={(typewriter) => {
             typewriter
